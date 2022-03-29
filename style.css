@@ -11,8 +11,15 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-color: #020d16;
 }
-
+.name {
+  position: absolute;
+  color: rgb(125 251 12);
+  left: 10%;
+  font-size: 4vmin;
+  top: 1vmin;
+}
 .world {
   overflow: hidden;
   position: relative;
@@ -20,9 +27,10 @@ body {
 
 .score {
   position: absolute;
-  font-size: 3vmin;
-  right: 1vmin;
+  font-size: 4vmin;
+  right: 50vw;
   top: 1vmin;
+  color: rgb(233 230 226);
 }
 
 .start-screen {
@@ -31,6 +39,17 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: rgb(233 230 226);
+  border: 2px solid rgb(90, 144, 9);
+  outline: 4px solid #e5370f;
+  outline-offset: 5px;
+  padding: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .start-screen {
+    padding: 0px;
+  }
 }
 
 .ground {
