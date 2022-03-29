@@ -1,5 +1,6 @@
 import { updateGround,setupGround } from "./ground.js"
-import { updateDinosaur,setupDinosaur } from "./dinosaur.js"
+import { updateDinosaur,setupDinosaur,getDinoReact,setDinoLose } from "./dinosaur.js"
+import { updateCactus,setupCactus,getCactusRects } from "./cactus.js"
 
 const worldElement=document.querySelector('[data-world]')
 const scoreElement=document.querySelector('[data-score]')
@@ -28,8 +29,10 @@ function update(time)
     const delta=time - lastTime
     updateGround(delta,speedScale)
     updateDinosaur(delta,speedScale)
+    updateCactus(delta,speedScale)
     updateSpeedScale(delta)
     updateScore(delta)
+    if(looks()) return handleLose()
     lastTime=time
     window.requestAnimationFrame(update)
 }
@@ -44,12 +47,26 @@ function updateSpeedScale(delta) {
     scoreElement.textContent=Math.floor(score)
   }
 
+  function looks(){
+      const dinoBody=getDinoReact()
+      return getCactusRects().some(rect=>isCollision(rect,dinoBody))
+  }
+
+  function isCollision(rect,dinoBody)
+  {
+      return (rect.left<dinoBody.right&&
+      rect.top<dinoBody.bottom&&
+      rect.right>dinoBody.left&&
+      rect.bottom>dinoBody.top)
+  }
+
 function handleStart() {
     lastTime = null
     speedScale = 1
     score = 0
     setupGround()
     setupDinosaur()
+    setupCactus()
     startElement.classList.add('hide')
    
     window.requestAnimationFrame(update)
@@ -69,4 +86,13 @@ function setPixelToWorldScale()
 
         worldElement.style.width=`${WORLD_WIDTH*worldToPixelScale}px`;
         worldElement.style.height=`${WORLD_HEIGHT*worldToPixelScale}px`;
+    }
+
+    function handleLose()
+    {
+        setDinoLose()
+        setTimeout(()=>{
+            document.addEventListener("keydown",handleStart,{once:true})
+            startElement.classList.remove('hide')
+        },100)
     }

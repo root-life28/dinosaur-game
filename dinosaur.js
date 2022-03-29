@@ -31,7 +31,15 @@ export function updateDinosaur(delta,speedScale)
     handleJump(delta)
 }
 
+export function getDinoReact()
+{
+    return dinosaurElement.getBoundingClientRect()
+}
 
+export function setDinoLose()
+{
+    dinosaurElement.src="./images/dino-lose.png"
+}
 
 function handelRun(delta,speedScale)
 {
@@ -51,6 +59,7 @@ function handelRun(delta,speedScale)
     currentFrameTime+=delta*speedScale
    
 }
+
 
 
 function handleJump(delta) {
