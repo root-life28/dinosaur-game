@@ -1,4 +1,5 @@
 import { updateGround,setupGround } from "./ground.js"
+import { updateDinosaur,setupDinosaur } from "./dinosaur.js"
 
 const worldElement=document.querySelector('[data-world]')
 const scoreElement=document.querySelector('[data-score]')
@@ -26,6 +27,7 @@ function update(time)
 
     const delta=time - lastTime
     updateGround(delta,speedScale)
+    updateDinosaur(delta,speedScale)
     updateSpeedScale(delta)
     updateScore(delta)
     lastTime=time
@@ -47,6 +49,7 @@ function handleStart() {
     speedScale = 1
     score = 0
     setupGround()
+    setupDinosaur()
     startElement.classList.add('hide')
    
     window.requestAnimationFrame(update)
